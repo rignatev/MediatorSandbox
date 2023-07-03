@@ -1,3 +1,5 @@
+using Mediator;
+
 using MediatorSandbox.App;
 
 using Microsoft.AspNetCore.Mvc;
@@ -8,19 +10,14 @@ namespace MediatorSandbox.Api.Controllers;
 [Route("[controller]")]
 public class TestQueryController : ControllerBase
 {
-    private readonly Mediator.Mediator _mediator;
-    private readonly ILogger<TestQueryController> _logger;
+    private readonly IMediator _mediator;
 
-    public TestQueryController(Mediator.Mediator mediator, ILogger<TestQueryController> logger)
-    {
-        _mediator = mediator;
-        _logger = logger;
-    }
+    public TestQueryController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
     public async Task<IActionResult> Notify([FromQuery] string message)
     {
-        var queryResponse = await _mediator.Send(new TestQuery.Query { Message = message });
+        string queryResponse = await _mediator.Send(new TestQuery.Query { Message = message });
 
         return Ok(queryResponse);
     }

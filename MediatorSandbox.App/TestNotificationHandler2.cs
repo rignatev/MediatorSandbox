@@ -13,7 +13,7 @@ public class TestNotificationHandler2 : INotificationHandler<TestNotification>
     /// <inheritdoc />
     public async ValueTask Handle(TestNotification notification, CancellationToken cancellationToken)
     {
-        await Task.Delay(10000, cancellationToken);
+        await Task.Delay(500, cancellationToken);
 
         _logger.LogInformation("NotificationHandler2 {Message}", notification.Message);
     }

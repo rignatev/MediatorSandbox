@@ -1,3 +1,5 @@
+using Mediator;
+
 using MediatorSandbox.App;
 
 using Microsoft.AspNetCore.Mvc;
@@ -8,14 +10,9 @@ namespace MediatorSandbox.Api.Controllers;
 [Route("[controller]")]
 public class TestNotificationController : ControllerBase
 {
-    private readonly Mediator.Mediator _mediator;
-    private readonly ILogger<TestNotificationController> _logger;
+    private readonly IMediator _mediator;
 
-    public TestNotificationController(Mediator.Mediator mediator, ILogger<TestNotificationController> logger)
-    {
-        _mediator = mediator;
-        _logger = logger;
-    }
+    public TestNotificationController(IMediator mediator) => _mediator = mediator;
 
     [HttpPost]
     public async Task<IActionResult> Notify([FromBody] string message)
